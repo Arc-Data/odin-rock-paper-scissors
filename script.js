@@ -25,7 +25,15 @@ function generateIcons(player, computer, roundText) {
 
 function playRound(e) {
 	console.log(e.target.id)
-	if(round > 5 || playerWin == 3 || computerWin == 3) return;
+	if(round == 5 || playerWin == 3 || computerWin == 3) 
+	{
+		if(confirm("Play another round?")) 
+		{
+
+		} else {
+			buttons.forEach(button => button.removeEventListener('click', playRound));
+		}
+	};
 	
 	const roundText = cards[round].firstElementChild;
 	const computer = Math.floor(Math.random() * 3);
@@ -33,15 +41,20 @@ function playRound(e) {
 
 	generateIcons(player, computer, roundText);
 
-	if(player == computer) {
+	if(player == computer) 
+	{
 		roundText.textContent = "Draw!";
-	} else if(	(player == 0 && computer == 2) ||
+	} 
+	else if(	(player == 0 && computer == 2) ||
 				(player == 1 && computer == 0) || 
-				(player == 2 && computer == 1) ) {
+				(player == 2 && computer == 1) ) 
+	{
 		roundText.textContent = "Player Wins!";
 		cards[round].classList.add('p-win')
 		playerWin++;
-	} else {
+	} 
+	else 
+	{
 		roundText.textContent = 'Computer Wins!';
 		cards[round].classList.add('c-win')
 		computerWin++;
@@ -49,7 +62,8 @@ function playRound(e) {
 
 	round++;
 	
-	if(playerWin == 3 || computerWin == 3) {
+	if(playerWin == 3 || computerWin == 3) 
+	{
 		for(round; round < 5; round++) {
 			cards[round].style.background = 'black';
 			cards[round].style.color = 'black';
