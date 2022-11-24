@@ -29,7 +29,7 @@ function playRound(e) {
 	
 	const roundText = cards[round].firstElementChild;
 	const computer = Math.floor(Math.random() * 3);
-	const player = (e.target.id === 'rock') ? 0 : (e.target.id === 'paper') ? 1 : 2;
+	const player = Number(e.target.id);
 
 	generateIcons(player, computer, roundText);
 
