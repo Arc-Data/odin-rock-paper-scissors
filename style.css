@@ -14,6 +14,7 @@ h1 {
 	margin:40px;
 	font-weight:600;
 	font-size:4em;
+	text-align:center;
 }
 
 body {
@@ -38,6 +39,7 @@ body {
 	gap:10px;
 	justify-content: center;
 	font-size:1.4em;
+	width:600px;
 }
 
 .record-card {

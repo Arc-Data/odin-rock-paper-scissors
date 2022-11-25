@@ -1,10 +1,9 @@
 const pick = ['fa-hand-back-fist', 'fa-hand', 'fa-hand-scissors'];
 const cards = document.querySelectorAll('.record-card');
 const buttons = document.querySelectorAll('button');
+const h1 = document.querySelector('h1');
 
-let round = 0, playerWin = 0, computerWin = 0;
-
-console.log()
+let round = 0, playerScore = 0, computerScore = 0;
 
 function generateIcons(player, computer, roundText) {
 	console.log(pick, player, computer)
@@ -29,6 +28,8 @@ function removeRecord(card) {
 }
 
 function generateRecords() {
+	h1.textContent = 'Rock, Paper Scissors!'
+
 	cards.forEach( (card, idx) => {
 		removeRecord(card);
 		card.classList.remove('p-win');
@@ -40,46 +41,55 @@ function generateRecords() {
 	 	card.appendChild(p);
 	})
 
-	round = playerWin = computerWin = 0;
+	round = playerScore = computerScore = 0;
+}
+
+function gameEnd() {
+	if (round == 5 || playerScore == 3 || computerScore == 3) {
+		console.log("Trigger")
+		h1.textContent = (playerScore > computerScore) ? 
+						"Player wins!" : (playerScore == computerScore) ?
+						"Its a draw!" : "Computer Wins";
+		return true;
+	}
+
+	return false;
 }
 
 function playRound(e) {
-	if(round == 5 || playerWin == 3 || computerWin == 3) {
-		if(confirm("Play another round?")) {
-			generateRecords();
-			return;
-		} else {
-			buttons.forEach(button => button.removeEventListener('click', playRound));
-			return;
-		}
-	};
 	
+	if(gameEnd() && confirm("Play another round?")) {
+		generateRecords();
+		return;
+	} 
+
 	const roundText = cards[round].firstElementChild;
 	const computer = Math.floor(Math.random() * 3);
 	const player = Number(e.currentTarget.id);
 
 	generateIcons(player, computer, roundText);
 
-	if(player == computer) 
-	{
-		roundText.textContent = "Draw!";
-	} 
-	else if(	(player == 0 && computer == 2) ||
+	if (player == computer) {
+		roundText.textContent = "==";
+	} else if (	(player == 0 && computer == 2) ||
 				(player == 1 && computer == 0) || 
-				(player == 2 && computer == 1) ) 
-	{
-		roundText.textContent = "Player Wins!";
+				(player == 2 && computer == 1) ) {
+		roundText.textContent = ">";
 		cards[round].classList.add('p-win')
-		playerWin++;
-	} 
-	else 
-	{
-		roundText.textContent = 'Computer Wins!';
+		playerScore++;
+	} else {
+		roundText.textContent = '<';
 		cards[round].classList.add('c-win')
-		computerWin++;
+		computerScore++;
 	}
 
 	round++;
+	if(gameEnd()) {
+		console.log("Should end so why");
+	} else {
+		h1.textContent = playerScore + " : " + computerScore;
+	}
+
 }
 
 
