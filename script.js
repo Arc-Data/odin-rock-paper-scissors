@@ -1,9 +1,8 @@
 const pick = ['fa-hand-back-fist', 'fa-hand', 'fa-hand-scissors'];
-
 const cards = document.querySelectorAll('.record-card');
 const buttons = document.querySelectorAll('button');
+
 let round = 0, playerWin = 0, computerWin = 0;
-let gameHasWinner = false;
 
 console.log()
 
@@ -81,11 +80,6 @@ function playRound(e) {
 	}
 
 	round++;
-	
-	if(playerWin == 3 || computerWin == 3) {
-	
-	}
-	
 }
 
 
