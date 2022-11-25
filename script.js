@@ -32,12 +32,13 @@ function playRound(e) {
 
 		} else {
 			buttons.forEach(button => button.removeEventListener('click', playRound));
+			return;
 		}
 	};
 	
 	const roundText = cards[round].firstElementChild;
 	const computer = Math.floor(Math.random() * 3);
-	const player = Number(e.target.id);
+	const player = Number(e.currentTarget.id);
 
 	generateIcons(player, computer, roundText);
 
@@ -76,5 +77,7 @@ function playRound(e) {
 
 
 buttons.forEach( button => {
-	button.addEventListener('click', playRound);
+	button.addEventListener('click', playRound, {
+		capture:true;
+	});
 })
