@@ -24,6 +24,7 @@ function generateIcons(player, computer, roundText) {
 }
 
 function playRound(e) {
+	e.stopPropagation();
 	console.log(e.target.id)
 	if(round == 5 || playerWin == 3 || computerWin == 3) 
 	{
@@ -78,6 +79,6 @@ function playRound(e) {
 
 buttons.forEach( button => {
 	button.addEventListener('click', playRound, {
-		capture:true;
+		capture:true
 	});
 })
